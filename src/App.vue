@@ -1,6 +1,6 @@
 <template>
   <div>
-    <SignPage />
+    <SignPage v-if="routers.SignPage" />
   </div>
 </template>
 
@@ -10,7 +10,8 @@ import SignPage from "./pages/SignPage.vue";
 
 export default {
   setup() {
-    return {};
+    const route = createRouter(["SignPage"]);
+    return { routers, route };
   },
   components: { SignPage },
 };

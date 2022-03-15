@@ -40,7 +40,11 @@
 import { reactive, ref } from "@vue/reactivity";
 import InputForm from "../components/InputForm.vue";
 export default {
-  setup() {
+  props: {
+    route: Function,
+  },
+  setup(props) {
+    const route = props.route;
     const signState = reactive({
       signIn: true,
       signUp: false,
