@@ -39,6 +39,7 @@
 import { isIntegerKey } from "@vue/shared";
 import { toRef } from "vue";
 export default {
+  name: "InputForm",
   props: {
     formTitle: String,
     inputAreas: Array,
