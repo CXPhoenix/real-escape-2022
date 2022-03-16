@@ -11,12 +11,13 @@
 
 <script>
 import { onMounted, ref } from "vue";
-import { delay } from "../utils/functions";
+import { typingEffect } from "../utils/functions";
 export default {
   name: "TypingEffectTextArea",
   props: {
     delayTime: Number,
     className: Array,
+    isNotTypingEffect: Boolean,
   },
   emit: ["typingFinish"],
   setup(props, { emit, slots }) {
@@ -26,6 +27,11 @@ export default {
     const className = props.className || basicClassName;
 
     onMounted(() => {
+      if (props.isNotTypingEffect) {
+        typings.value = slots.default()[0].children.split(" ");
+        emit("typingFinish");
+        return;
+      }
       const text = slots.default()[0].children.split(" ");
       for (let i = 0; i < text.length; i++) typings.value.push("");
       typingEffect(text, typings, props.delayTime);
@@ -34,24 +40,6 @@ export default {
     return { typings, className };
   },
 };
-
-function typingEffect(theText, target, ms, index = 0, arrayIndex = 0) {
-  if (typeof theText === "string") {
-    if (index >= theText.length) return new Promise((resolve) => resolve);
-    target.value += theText.charAt(index);
-    return delay(ms).then(() => typingEffect(theText, target, ms, index + 1));
-  }
-  if (arrayIndex >= theText.length) return;
-  if (index >= theText[arrayIndex].length) {
-    return delay(ms).then(() =>
-      typingEffect(theText, target, ms, 0, arrayIndex + 1)
-    );
-  }
-  target.value[arrayIndex] += theText[arrayIndex].charAt(index);
-  return delay(ms).then(() =>
-    typingEffect(theText, target, ms, index + 1, arrayIndex)
-  );
-}
 </script>
 
 <style lang="scss" scoped></style>
