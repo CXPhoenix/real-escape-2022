@@ -1,8 +1,8 @@
 const allLevels = [
   {
     id: "lv0",
-    description: "> ",
-    text: "請輸入要找的人...",
+    description: "請輸入要找的人...",
+    preText: ">> ",
     type: "text",
     value: "",
   },

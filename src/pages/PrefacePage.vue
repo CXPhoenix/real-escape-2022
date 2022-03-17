@@ -11,38 +11,25 @@
         煩死了，不是每個學校都有校慶嗎？有什麼了不起的！
         算了，既然進來了，就試試看吧！校慶歷年回顧...... 我該找誰呢？
       </TypingEffectTextArea>
-      <label :for="level.id" class="flex items-center justify-center">
-        <p>{{ level.description }}</p>
-        <input
-          :id="level.id"
-          :type="level.type"
-          class="w-full border-b-2 pt-1 pl-2 outline-none focus:border-b-blue-300"
-          :placeholder="level.text"
-          :aria-label="level.text"
-          ref="input"
-          v-model="level.value"
-        />
-      </label>
+      <LevelAnswerArea :level="level" />
     </div>
   </div>
 </template>
 
 <script>
-import { ref, onMounted } from "vue";
+import { ref } from "vue";
 import TypingEffectTextArea from "../components/TypingEffectTextArea.vue";
 import { getLevel } from "../levels";
+import LevelAnswerArea from "../components/LevelAnswerArea.vue";
 export default {
   setup() {
     const input = ref(null);
     const typingClasses = ["py-1", "text-xl"];
     const level = getLevel([0])[0];
 
-    onMounted(() => {
-      input.value.focus();
-    });
     return { input, typingClasses, level };
   },
-  components: { TypingEffectTextArea },
+  components: { TypingEffectTextArea, LevelAnswerArea },
 };
 </script>
 
